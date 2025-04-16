@@ -32,12 +32,6 @@ struct cmd_results *cmd_font(int argc, char **argv) {
 		return cmd_results_new(CMD_FAILURE, "Invalid font family.");
 	}
 
-	const gint size = pango_font_description_get_size(font_description);
-	if (size == 0) {
-		pango_font_description_free(font_description);
-		return cmd_results_new(CMD_FAILURE, "Invalid font size.");
-	}
-
 	if (config->font_description != NULL) {
 		pango_font_description_free(config->font_description);
 	}
