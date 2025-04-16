@@ -349,7 +349,7 @@ static bool phys_size_is_aspect_ratio(struct wlr_output *output) {
 // 1 inch = 25.4 mm
 #define MM_PER_INCH 25.4
 
-static int compute_default_scale(struct wlr_output *output,
+static float compute_default_scale(struct wlr_output *output,
 		struct wlr_output_state *pending) {
 	struct wlr_box box = { .width = output->width, .height = output->height };
 	if (pending->committed & WLR_OUTPUT_STATE_MODE) {
@@ -372,6 +372,14 @@ static int compute_default_scale(struct wlr_output *output,
 
 	int width = box.width;
 	int height = box.height;
+
+	if (width >= 3840) {
+		return 3.5;
+	} else if (width >= 2560) {
+		return 2.5;
+	} else if (width >= 1920){
+		return 1.5;
+	}
 
 	if (height < HIDPI_MIN_HEIGHT) {
 		return 1;
